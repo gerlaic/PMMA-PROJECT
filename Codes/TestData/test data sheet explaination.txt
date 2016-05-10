@@ -1,0 +1,7 @@
+This is the folder for all the test data sheets that used in the program
+
+The directory and the filenames are set in init.m
+
+You can also create a simple read all function to test through all test data sheets.
+
+Currently all test datas are from Wenwei's "thick PMMA on gold"
