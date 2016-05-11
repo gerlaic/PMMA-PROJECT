@@ -1,3 +1,16 @@
+%   evalEquation.m
+%   A function that plugs in the variable values into Zac's formula
+%   Use an earlier form of G in the formula. This can be find in the
+%   writeup Page 5.
+%   Input:
+%       n2: coefficient of refraction
+%       order: how many times that the waves reflected in the medium
+%       h_2: thinkness of the medium
+%   Output:
+%       The result of the pluging everything into our formula
+%       In other word, the value of the left part of the equation that we 
+%       are solving. 
+
 function result = evalEquation2(n2,order,k_0,h_2)
     %setting up parameters
     theta_1_deg = 57; % Given by Wenwei [degrees]

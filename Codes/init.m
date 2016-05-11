@@ -16,7 +16,7 @@ testDataFiles = {'Sample01_A_349kN_132ps_inside_rectangle_TD' ...
     'Sample01_D_348kN_132ps_TD' ...
     'Sample01_E_353kN_132ps_TD'};
 
-testDataFiles = {'Sample01_A_349kN_132ps_inside_rectangle_TD'}; %override
+%testDataFiles = {'Sample01_A_349kN_132ps_inside_rectangle_TD'}; %override
 
 % timestr = datestr(now,'yymmdd_HH_MM_SS');
 % diary([output_dir,'log_',timestr,'.txt']);

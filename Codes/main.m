@@ -11,7 +11,7 @@ c = 3E8;% Speed of light m/s
 
 real_threshold = 0.00001; 
 img_threshold = 0.000001;% maximum allowable error
-max_order = 1;%max levels of iteration 
+max_order = 25;%max levels of iteration 
 
 %   Import Data
 [time, amplitude] = importData([dir,testDataFile,'.xlsx']);
@@ -32,14 +32,14 @@ x_fft = x_fft./x_fftR;
 
 %   freq range we are going to use :
 %   0.7THz ~ 1.0THz
-start_point = floor(0.8/df);
-end_point = floor(0.8/df);
+start_point = floor(0.7/df);
+end_point = floor(1.0/df);
 s = 2;% step
 
 %   thickness test list
 %   10micron to 30 micron
 h2_list = (10:5:30)*1E-6;
-h2_list = 15E-6; %overide
+%h2_list = 15E-6; %overide
 
 %   init stuffs for output
 n_2plot = zeros(size(h2_list,2),size(freq,2));
@@ -48,17 +48,17 @@ max_reached_times = 0;
 
 %   Start solving
 for h_index = 1:size(h2_list,2) % for multiple thicknesses
-    h_2 = h2_list(h_index)
+    h_2 = h2_list(h_index);
 
     for ii = start_point:s:end_point % for different frequency
         %   DEBUG OUTPUT
         disp(['CURRENT FREQ: ',num2str((ii-1)*df)]);
 
-        r = x_fft(ii)
+        r = x_fft(ii);
 
         %A = 1; %Just a reminder that the data is normalized
 
-        k_0 = 2*pi* freq(ii) * 1E12/c
+        k_0 = 2*pi* freq(ii) * 1E12/c;
 
         order = 0;
         n_2 = 0;
@@ -75,8 +75,8 @@ for h_index = 1:size(h2_list,2) % for multiple thicknesses
             %disp(['Solving for ORDER ',num2str(order),' of height ',num2str(h_2),'...']);
 
             %Solving Equation
-            %result = nrSolving(order,k_0,r,h_2);
-            result = easySolvingForThirdRoundV2(order,k_0,r,h_2);
+            result = nrSolving(order,k_0,r,h_2);
+            %result = easySolvingForThirdRoundV2(order,k_0,r,h_2);
 
             n_2 = result(1);  
             n_diff = (n_2 - n_prev);
