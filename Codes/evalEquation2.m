@@ -13,12 +13,12 @@
 
 function result = evalEquation2(n2,order,k_0,h_2)
     %setting up parameters
-    theta_1_deg = 57; % Given by Wenwei [degrees]
+    theta_1_deg = 57; % Given by Wenwei [degrees]¡¡% INPUT PARAMETER
     %h_2 = 15E-6; % Nominal thickness of the sample [
     
     %Calculated parameters
     theta_1_rad = theta_1_deg /180 * pi;
-    n_1 = 3.4168; % Silicon
+    n_1 = 3.4168; % Silicon¡¡% INPUT PARAMETER
 %     e_1 = n_1^2; % Silicon
 %     e_2 = n2^2; % Test Material
     p_1 = n_1*cos(theta_1_rad);

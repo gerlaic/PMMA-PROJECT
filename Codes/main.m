@@ -7,7 +7,7 @@ function result = main(testDataFile, refDataFile,dir,output_dir)
 
 close all;
 
-c = 3E8;% Speed of light m/s
+c = 3E8;% Speed of light m/s % INPUT PARAMETER
 
 real_threshold = 0.00001; 
 img_threshold = 0.000001;% maximum allowable error
