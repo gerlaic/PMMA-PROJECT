@@ -52,7 +52,7 @@ for h_index = 1:size(h2_list,2) % for multiple thicknesses
 
     for ii = start_point:s:end_point % for different frequency
         %   DEBUG OUTPUT
-        disp(['CURRENT FREQ: ',num2str((ii-1)*df)]);
+        disp(['CURRENT FREQ: ',num2str(ii*df)]);
 
         r = x_fft(ii)
 
@@ -75,8 +75,8 @@ for h_index = 1:size(h2_list,2) % for multiple thicknesses
             %disp(['Solving for ORDER ',num2str(order),' of height ',num2str(h_2),'...']);
 
             %Solving Equation
-            %result = nrSolving(order,k_0,r,h_2);
-            result = easySolvingForThirdRoundV2(order,k_0,r,h_2);
+            result = nrSolving(order,k_0,r,h_2);
+            %result = easySolvingForThirdRoundV2(order,k_0,r,h_2);
 
             n_2 = result(1);  
             n_diff = (n_2 - n_prev);

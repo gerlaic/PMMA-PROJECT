@@ -17,10 +17,10 @@ freq_vec = 0:df:freq_end;
 x_fft = x_fft(1:len);
 x_power = x_power(1:len);
 
-
-figure
-plot(freq_vec,x_power);
-axis([0 5 0 3E-6]);
-xlabel('freq');
-ylabel('power');
-title('power from fft');
+% 
+% figure
+% plot(freq_vec,x_power);
+% axis([0 5 0 3E-6]);
+% xlabel('freq');
+% ylabel('power');
+% title('power from fft');

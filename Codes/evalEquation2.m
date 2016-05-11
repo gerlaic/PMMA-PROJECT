@@ -1,4 +1,4 @@
-function result = evalEquation2()
+function result = evalEquation2(n2,order,k_0,h_2)
     %setting up parameters
     theta_1_deg = 57; % Given by Wenwei [degrees]
     %h_2 = 15E-6; % Nominal thickness of the sample [
@@ -6,7 +6,8 @@ function result = evalEquation2()
     %Calculated parameters
     theta_1_rad = theta_1_deg /180 * pi;
     n_1 = 3.4168; % Silicon
-    e_1 = n_1^2; % Silicon
+%     e_1 = n_1^2; % Silicon
+%     e_2 = n2^2; % Test Material
     p_1 = n_1*cos(theta_1_rad);
 
     %block1:    p_refl2^-1
@@ -15,12 +16,21 @@ function result = evalEquation2()
     block1 = p_refl2^(-1);
 
     %block2:    sum(G)
-    r_refl2 = (p_2-p_1)/(p_1+p_2);
-    cos_theta22 = (1-n_1^2*(sin(theta_1_rad)^2)/(n2^2));
-    g_unit = -r_refl2*[1,1i*k_0*h_2*n2^2;1i*k_0*h_2*cos_theta22,1]^2;
-    block2 = [0,0;0,0];
-    for iii = 1:order
-        block2 = block2 + g_unit^iii;
+    %   G = P_refl2*N2*(P_refl1^-1)*N2  
+    a = k_0*n2*h_2*sqrt(1-n_1^2*(sin(theta_1_rad)^2)/n2^2);
+    M = [cos(a), -1i*sin(a)/p_2;-1i*p_2*sin(a), cos(a)];
+    N = M^-1;
+    
+    p_refl1 = -1*[1,0;0,1];
+    
+    g_unit = p_refl2*N*(p_refl1^-1)*N;
+    if order == 0
+        block2 = [1,0;0,1];
+    else
+        block2 = [0,0;0,0];
+        for iii = 1:order
+            block2 = block2 + g_unit^iii;
+        end
     end
 
     %block3:    [A1+R1;P1(A1-R1)]
