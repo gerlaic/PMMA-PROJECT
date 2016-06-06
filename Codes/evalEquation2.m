@@ -1,4 +1,4 @@
-%   evalEquation.m
+%   evalEquation2.m
 %   A function that plugs in the variable values into Zac's formula
 %   Use an earlier form of G in the formula. This can be find in the
 %   writeup Page 5.
@@ -31,10 +31,10 @@ function result = evalEquation2(n2,order,k_0,h_2)
     %block2:    sum(G)
     %   G = P_refl2*N2*(P_refl1^-1)*N2  
     a = k_0*n2*h_2*sqrt(1-n_1^2*(sin(theta_1_rad)^2)/n2^2);
-    M = [cos(a), -1i*sin(a)/p_2;-1i*p_2*sin(a), cos(a)];
-    N = M^-1;
+    %M = [cos(a), -1i*sin(a)/p_2;-1i*p_2*sin(a), cos(a)]; % from Zac's write up and I believe this is from the book.
+    N = [cos(a), 1i*sin(a)/p_2; 1i*p_2*sin(a), cos(a)] ; % calculated by hand; Checked to be correct. 
     
-    p_refl1 = -1*[1,0;0,1];
+    p_refl1 = 1*[1,0;0,1];
     
     g_unit = p_refl2*N*(p_refl1^-1)*N;
     if order == 0

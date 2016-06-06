@@ -11,18 +11,19 @@ c = 3E8;% Speed of light m/s % INPUT PARAMETER
 
 real_threshold = 0.00001; 
 img_threshold = 0.000001;% maximum allowable error
-max_order = 25;%max levels of iteration 
+max_order = 40;%max levels of iteration 
+%max_order = 1; %override
 
 %   Import Data
 [time, amplitude] = importData([dir,testDataFile,'.xlsx']);
 [timeR,amplitudeR] = importData([dir,refDataFile,'.xlsx']);
 
 %   Convert TD -> FD
-[x_fft,freq,df,~] = td2fd(time,amplitude);
+[x_fft,freq,df,~] = td2fd(time,amplitude); %confirmed by comparing with WW's data
 [x_fftR,~,~,~] = td2fd(timeR,amplitudeR);
 
 %   Normalize
-x_fft = x_fft./x_fftR;
+x_fft = x_fft./x_fftR; %confirmed by looking at the graph
 %x_power = x_power./x_powerR;
 
 %   Show how the normalized data look like
@@ -58,7 +59,7 @@ for h_index = 1:size(h2_list,2) % for multiple thicknesses
 
         %A = 1; %Just a reminder that the data is normalized
 
-        k_0 = 2*pi* freq(ii) * 1E12/c;
+        k_0 = 2*pi* freq(ii) * 1E12/c; %confirmed with write-up
 
         order = 0;
         n_2 = 0;
@@ -66,7 +67,7 @@ for h_index = 1:size(h2_list,2) % for multiple thicknesses
 
         while ((abs(real(n_diff)) > real_threshold)|| ...
                 (abs(imag(n_diff))>img_threshold)) && ...
-                (order < max_order)
+                (order < max_order) %confirmed with debugs
             %   Handle previous loop's values
             order = order+1;
             n_prev = n_2;
@@ -75,10 +76,10 @@ for h_index = 1:size(h2_list,2) % for multiple thicknesses
             %disp(['Solving for ORDER ',num2str(order),' of height ',num2str(h_2),'...']);
 
             %Solving Equation
-            result = nrSolving(order,k_0,r,h_2);
+            result = nrSolving(k_0,r,h_2);
             %result = easySolvingForThirdRoundV2(order,k_0,r,h_2);
 
-            n_2 = result(1);  
+            n_2 = result(1);
             n_diff = (n_2 - n_prev);
 
             if (abs(imag(n_diff)) < img_threshold)
